@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="org.sopt.sample.presentation.sign_in.SignInViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.sign_in.SignInActivity">
+
+        <TextView
+            android:id="@+id/tv_auto_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/sign_in_auto_login"
+            android:textAppearance="@style/B3"
+            app:layout_constraintBottom_toBottomOf="@id/ck_auto_login"
+            app:layout_constraintEnd_toStartOf="@id/ck_auto_login"
+            tools:text="자동로그인" />
+
+        <CheckBox
+            android:id="@+id/ck_auto_login"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="5dp"
+            android:onClick="@{() -> vm.setAutoMode()}"
+            app:layout_constraintBottom_toTopOf="@id/edt_id_enter"
+            app:layout_constraintEnd_toEndOf="@id/edt_id_enter" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/welcomesopt"
+            android:textAppearance="@style/H1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="60dp"
+            android:text="@string/id"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <EditText
+            android:id="@+id/edt_id_enter"
+            style="@style/InSoptEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:hint="@string/input_id"
+            android:text="@={vm.userid}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_id" />
+
+        <TextView
+            android:id="@+id/tv_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/password"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edt_id_enter" />
+
+        <EditText
+            android:id="@+id/edt_password"
+            style="@style/InSoptEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:hint="@string/input_password"
+            android:inputType="textPassword"
+            android:text="@={vm.userPassword}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_password" />
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/flow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="10dp"
+            app:constraint_referenced_ids="btn_login,btn_signup"
+            app:flow_horizontalGap="12dp"
+            app:flow_maxElementsWrap="2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login"
+            style="@style/InSoptBasicButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@{vm.userid.empty || vm.userPassword.empty ? @color/hous_g_6 : @color/hous_blue}"
+            android:clickable="@{vm.userid.empty || vm.userPassword.empty ? false : true}"
+            android:text="@string/login" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_signup"
+            style="@style/InSoptBasicButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/hous_blue"
+            android:text="@string/signup" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

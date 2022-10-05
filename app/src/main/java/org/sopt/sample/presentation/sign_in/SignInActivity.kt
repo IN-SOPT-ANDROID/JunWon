@@ -21,7 +21,9 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-                showSnackBar(binding.root, getString(R.string.sign_up_success))
+                showSnackBar(binding.root, getString(R.string.sign_up_success)) {
+                    setAction("확인") {}
+                }
                 val userInfo = result.data?.getParcelableExtra<UserInfo>(USER_INFO)
                 userInfo?.also { userData ->
                     viewModel.setLoginInfo(userData)

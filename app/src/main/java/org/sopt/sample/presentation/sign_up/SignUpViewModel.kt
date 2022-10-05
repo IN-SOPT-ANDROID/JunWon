@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.stateIn
 import org.sopt.sample.data.local.SoptSharedPreference
 import org.sopt.sample.data.model.UserInfo
 import org.sopt.sample.presentation.type.MbtiType
-import org.sopt.sample.util.extension.isLetters
+import org.sopt.sample.util.extension.isLetterOrDigit
 import org.sopt.sample.util.extension.isRange
 import org.sopt.sample.util.extension.safeValueOf
 import javax.inject.Inject
@@ -23,7 +23,7 @@ class SignUpViewModel @Inject constructor(private val soptSharedPreference: Sopt
     val userPassWord = MutableStateFlow("")
     val userMbti = MutableStateFlow("")
     val isValidSignUpFormat: StateFlow<Boolean> = userId.combine(userPassWord) { id, pw ->
-        id.length.isRange(6, 10) && pw.length.isRange(8, 12) && id.isLetters()
+        id.length.isRange(6, 10) && pw.length.isRange(8, 12) && id.isLetterOrDigit()
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), false)
 
     fun getUserInfo() =

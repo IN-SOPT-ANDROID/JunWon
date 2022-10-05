@@ -4,6 +4,7 @@
     package="org.sopt.sample">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".SoptApplication"
         android:allowBackup="true"
@@ -16,10 +17,22 @@
         android:theme="@style/Theme.INSOPTAndroidPractice"
         tools:targetApi="32">
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".presentation.setting.SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.my_page.MyPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.sign_up.SignUpActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".presentation.sign_in.SignInActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -15,20 +15,13 @@ class MyPageActivity : BindingActivity<ActivityMyPageBinding>(R.layout.activity_
     private val viewModel by viewModels<MyPageViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setMyPageInfo()
+        binding.vm = viewModel
         initClickListener()
-    }
-
-    private fun setMyPageInfo() {
-        binding.tvMbti.text =
-            String.format(getString(R.string.my_page_mbti), viewModel.userMbti.value)
     }
 
     private fun initClickListener() {
         binding.ivSetting.setOnClickListener {
-            Intent(this, SettingActivity::class.java).also { intent ->
-                startActivity(intent)
-            }
+            startActivity(Intent(this, SettingActivity::class.java))
         }
     }
 }

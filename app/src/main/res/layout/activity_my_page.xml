@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="org.sopt.sample.presentation.my_page.MyPageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center_horizontal"
+                android:text="@{@string/my_page_mbti(vm.userMbti)}"
                 android:textAppearance="@style/B3"
                 android:textColor="@color/white"
                 android:textSize="13sp"

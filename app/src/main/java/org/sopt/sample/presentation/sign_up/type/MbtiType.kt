@@ -1,4 +1,4 @@
-package org.sopt.sample.presentation.type
+package org.sopt.sample.presentation.sign_up.type
 
 enum class MbtiType {
     NONE,

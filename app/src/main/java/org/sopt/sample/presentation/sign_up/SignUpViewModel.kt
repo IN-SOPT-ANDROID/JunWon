@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import org.sopt.sample.data.local.SoptSharedPreference
-import org.sopt.sample.data.model.UserInfo
-import org.sopt.sample.presentation.type.MbtiType
+import org.sopt.sample.data.entity.UserInfo
+import org.sopt.sample.presentation.sign_up.type.MbtiType
 import org.sopt.sample.util.extension.isLetterOrDigit
 import org.sopt.sample.util.extension.isRange
 import org.sopt.sample.util.extension.safeValueOf

@@ -6,7 +6,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.sample.R
-import org.sopt.sample.data.model.UserInfo
+import org.sopt.sample.data.entity.UserInfo
 import org.sopt.sample.databinding.ActivitySignInBinding
 import org.sopt.sample.presentation.my_page.MyPageActivity
 import org.sopt.sample.presentation.sign_up.SignUpActivity

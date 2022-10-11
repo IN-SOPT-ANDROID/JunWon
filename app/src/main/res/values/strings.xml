@@ -22,4 +22,7 @@
     <string name="sign_in_auto_login">자동 로그인"</string>
     <string name="setting_title">환경설정</string>
     <string name="setting_logout">로그아웃</string>
+    <string name="bottom_navi_home">홈</string>
+    <string name="bottom_navi_galley">갤러리</string>
+    <string name="bottom_navi_search">검색</string>
 </resources>

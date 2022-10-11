@@ -34,7 +34,10 @@ class MyPageActivity : BindingActivity<ActivityMyPageBinding>(R.layout.activity_
                 checkItemId(it.itemId)
             }
             setOnItemReselectedListener {
-                //TODO ScrollTOUP 구현
+                val homeFragment =
+                    supportFragmentManager.findFragmentByTag(HomeFragment::class.java.canonicalName) as? HomeFragment
+                homeFragment?.initScrollToPosition(0)
+                    ?: Timber.e(getString(R.string.null_point_exception))
             }
         }
     }

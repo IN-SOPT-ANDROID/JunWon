@@ -34,6 +34,11 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         }
     }
 
+    fun initScrollToPosition(targetPos: Int) {
+        binding.rvFollowers.layoutManager?.scrollToPosition(targetPos)
+            ?: Timber.e(getString(R.string.null_point_exception))
+    }
+
     private fun observeUiState() {
         repeatOnStarted {
             viewModel.uiState.collect { uiState ->

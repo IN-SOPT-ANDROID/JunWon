@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="org.sopt.sample.data.entity.FollowerListTitle" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/hous_white">
+
+        <TextView
+            android:id="@+id/tv_follower_list_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="20dp"
+            android:text="@{data.title}"
+            android:textAppearance="@style/H2"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="준원의 레포지토리" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/hous_g_5"
+            app:layout_constraintTop_toBottomOf="@id/tv_follower_list_title" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

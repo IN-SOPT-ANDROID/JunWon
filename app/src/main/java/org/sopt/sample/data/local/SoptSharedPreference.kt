@@ -10,7 +10,7 @@ import com.google.gson.JsonParseException
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.sopt.sample.BuildConfig
-import org.sopt.sample.data.model.UserInfo
+import org.sopt.sample.data.entity.UserInfo
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -39,9 +39,9 @@ class SoptSharedPreference @Inject constructor(@ApplicationContext context: Cont
         }
         get() {
             val json = dataStore.getString(USER_INFO_KEY, "")
-            val typeToken = object : TypeToken<UserInfo>() {}.type // 솔직히 TypeToken 필요없습니다.
+            val typeToken = object : TypeToken<UserInfo>() {}.type
             return try {
-                GsonBuilder().create().fromJson<UserInfo>(json, typeToken) // 여기도 그냥 Gson()써도 무방
+                GsonBuilder().create().fromJson<UserInfo>(json, typeToken)
             } catch (e: JsonParseException) {
                 Timber.e(e.localizedMessage)
                 UserInfo()

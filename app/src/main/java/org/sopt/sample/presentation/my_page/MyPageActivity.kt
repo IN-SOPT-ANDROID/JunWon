@@ -2,9 +2,6 @@ package org.sopt.sample.presentation.my_page
 
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.sample.R
 import org.sopt.sample.databinding.ActivityMyPageBinding
@@ -13,18 +10,19 @@ import org.sopt.sample.presentation.my_page.home.HomeFragment
 import org.sopt.sample.presentation.my_page.home.HomeFragment.Companion.HOME_FRAGMENT_TAG
 import org.sopt.sample.presentation.my_page.search.SearchFragment
 import org.sopt.sample.util.binding.BindingActivity
+import org.sopt.sample.util.extension.replaceTo
 import org.sopt.sample.util.showToast
 import timber.log.Timber
 
 @AndroidEntryPoint
 class MyPageActivity : BindingActivity<ActivityMyPageBinding>(R.layout.activity_my_page) {
 
-    private var hasHomeFragmentInBackStack = false
+    private var curPos = HOME
     private var onBackPressedTime = 0L
     private val onBackPressedCallback by lazy {
         object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (supportFragmentManager.backStackEntryCount == 0) {
+                if (curPos == HOME) {
                     val curTime = System.currentTimeMillis()
                     val gap = curTime - onBackPressedTime
                     if (gap > 1500) {
@@ -34,8 +32,6 @@ class MyPageActivity : BindingActivity<ActivityMyPageBinding>(R.layout.activity_
                     }
                     finish()
                 }
-                supportFragmentManager.popBackStackImmediate()
-                hasHomeFragmentInBackStack = false
                 updateBottomMenu()
             }
         }
@@ -43,15 +39,13 @@ class MyPageActivity : BindingActivity<ActivityMyPageBinding>(R.layout.activity_
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initDefaultFragment()
+        initNavigation()
         initClickListener()
         addActionWhenBackPressed()
     }
 
-    private fun initDefaultFragment() {
-        supportFragmentManager.commit {
-            replace<HomeFragment>(R.id.fc_my_page, HOME_FRAGMENT_TAG)
-        }
+    private fun initNavigation() {
+        replaceTo<HomeFragment>(R.id.fc_my_page, HOME_FRAGMENT_TAG)
     }
 
     private fun initClickListener() {
@@ -79,34 +73,30 @@ class MyPageActivity : BindingActivity<ActivityMyPageBinding>(R.layout.activity_
 
     private fun onNavigationItemSelected(itemId: Int): Boolean {
         when (itemId) {
-            R.id.navigation_home -> navigateTo<HomeFragment>()
-            R.id.navigation_gallery -> navigateTo<GalleryFragment>()
-            R.id.navigation_search -> navigateTo<SearchFragment>()
+            R.id.navigation_home -> replaceTo<HomeFragment>(R.id.fc_my_page, HOME_FRAGMENT_TAG) {
+                curPos = HOME
+            }
+            R.id.navigation_gallery -> replaceTo<GalleryFragment>(R.id.fc_my_page) {
+                curPos = GALLERY
+            }
+            R.id.navigation_search -> replaceTo<SearchFragment>(R.id.fc_my_page) {
+                curPos = SEARCH
+            }
             else -> Timber.e(IllegalArgumentException("itemId: $itemId"))
         }
         return true
     }
 
-    private inline fun <reified T : Fragment> navigateTo() {
-        supportFragmentManager.commit {
-            replace<T>(R.id.fc_my_page, T::class.java.canonicalName)
-            if (!hasHomeFragmentInBackStack) {
-                addToBackStack(HOME_FRAGMENT_TAG)
-                hasHomeFragmentInBackStack = true
-            }
+    private fun updateBottomMenu() {
+        replaceTo<HomeFragment>(R.id.fc_my_page) {
+            curPos = HOME
         }
+        binding.botNavMain.selectedItemId = R.id.navigation_home
     }
 
-    private fun updateBottomMenu() {
-        Timber.i("Home")
-        val homeFragment: Fragment? =
-            supportFragmentManager.findFragmentByTag(HOME_FRAGMENT_TAG) as? HomeFragment
-        homeFragment?.let { fragment ->
-            if (fragment.isVisible) {
-                binding.botNavMain.menu.findItem(R.id.navigation_home).isChecked = true
-                return@let
-            }
-            Timber.e("homeFragment is InVisible")
-        } ?: Timber.e(getString(R.string.null_point_exception))
+    companion object {
+        private const val HOME = 0
+        private const val GALLERY = 1
+        private const val SEARCH = 2
     }
 }

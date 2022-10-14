@@ -25,6 +25,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         initAdapter()
         observeUiState()
         initClickListener()
+        Timber.e(" ")
     }
 
     private fun initAdapter() {

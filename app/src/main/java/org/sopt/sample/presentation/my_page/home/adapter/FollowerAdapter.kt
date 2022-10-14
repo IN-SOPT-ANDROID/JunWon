@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.sopt.sample.data.entity.Follower
-import org.sopt.sample.data.entity.FollowerInfo
-import org.sopt.sample.data.entity.FollowerListTitle
+import org.sopt.sample.data.entity.FollowerHeader
+import org.sopt.sample.data.entity.FollowerContent
 import org.sopt.sample.databinding.ItemFollowerInfoBinding
 import org.sopt.sample.databinding.ItemFollowerListTitleBinding
 import org.sopt.sample.presentation.my_page.home.type.FollowerItemViewType
@@ -57,10 +57,10 @@ class FollowerAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: Follower) {
             try {
-                binding.data = data as FollowerInfo
+                binding.data = data as FollowerContent
             } catch (e: ClassCastException) {
                 Timber.e(e.localizedMessage)
-                binding.data = FollowerInfo()
+                binding.data = FollowerContent()
             }
         }
     }
@@ -69,7 +69,7 @@ class FollowerAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: Follower) {
             try {
-                binding.data = data as FollowerListTitle
+                binding.data = data as FollowerHeader
             } catch (e: ClassCastException) {
                 Timber.e(e.localizedMessage)
             }

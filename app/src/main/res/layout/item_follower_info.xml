@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="org.sopt.sample.data.entity.FollowerInfo" />
+            type="org.sopt.sample.data.entity.FollowerContent" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

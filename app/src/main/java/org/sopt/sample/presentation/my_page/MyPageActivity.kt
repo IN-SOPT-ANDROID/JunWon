@@ -23,9 +23,7 @@ class MyPageActivity : BindingActivity<ActivityMyPageBinding>(R.layout.activity_
     }
 
     private fun initDefaultFragment() {
-        supportFragmentManager.commit {
-            replace<HomeFragment>(R.id.fc_my_page)
-        }
+        navigateTo<HomeFragment>()
     }
 
     private fun initClickListener() {

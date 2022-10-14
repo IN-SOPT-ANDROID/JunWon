@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.sample.R
-import org.sopt.sample.databinding.ActivityMyPageBinding
+import org.sopt.sample.databinding.ActivityMainBinding
 import org.sopt.sample.presentation.my_page.gallery.GalleryFragment
 import org.sopt.sample.presentation.my_page.home.HomeFragment
 import org.sopt.sample.presentation.my_page.home.HomeFragment.Companion.HOME_FRAGMENT_TAG
@@ -15,7 +15,7 @@ import org.sopt.sample.util.showToast
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MyPageActivity : BindingActivity<ActivityMyPageBinding>(R.layout.activity_my_page) {
+class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private var curPos = HOME
     private var onBackPressedTime = 0L
@@ -27,7 +27,7 @@ class MyPageActivity : BindingActivity<ActivityMyPageBinding>(R.layout.activity_
                     val gap = curTime - onBackPressedTime
                     if (gap > 1500) {
                         onBackPressedTime = curTime
-                        showToast(this@MyPageActivity, "한 번 더 누르면 종료")
+                        showToast(this@MainActivity, "한 번 더 누르면 종료")
                         return
                     }
                     finish()

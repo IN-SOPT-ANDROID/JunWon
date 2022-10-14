@@ -20,7 +20,7 @@
             android:name=".presentation.setting.SettingActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.my_page.MyPageActivity"
+            android:name=".presentation.my_page.MainActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.sign_up.SignUpActivity"

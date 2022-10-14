@@ -54,4 +54,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             } ?: Timber.e(getString(R.string.null_point_exception))
         }
     }
+
+    companion object {
+        val HOME_FRAGMENT_TAG = HomeFragment::class.java.canonicalName
+    }
 }

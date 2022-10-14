@@ -41,8 +41,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     private fun observeUiState() {
         repeatOnStarted {
-            viewModel.uiState.collect { uiState ->
-                followerAdapter.submitList(uiState.followerList)
+            viewModel.followerList.collect { followerList ->
+                followerAdapter.submitList(followerList)
             }
         }
     }

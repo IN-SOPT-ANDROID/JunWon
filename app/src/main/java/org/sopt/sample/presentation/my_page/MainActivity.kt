@@ -1,7 +1,7 @@
 package org.sopt.sample.presentation.my_page
 
 import android.os.Bundle
-import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.sample.R
 import org.sopt.sample.databinding.ActivityMainBinding
@@ -10,42 +10,26 @@ import org.sopt.sample.presentation.my_page.home.HomeFragment
 import org.sopt.sample.presentation.my_page.home.HomeFragment.Companion.HOME_FRAGMENT_TAG
 import org.sopt.sample.presentation.my_page.search.SearchFragment
 import org.sopt.sample.util.binding.BindingActivity
-import org.sopt.sample.util.extension.replaceTo
+import org.sopt.sample.util.extension.navigateTo
 import org.sopt.sample.util.showToast
 import timber.log.Timber
+import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private var curPos = HOME
     private var onBackPressedTime = 0L
-    private val onBackPressedCallback by lazy {
-        object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (curPos == HOME) {
-                    val curTime = System.currentTimeMillis()
-                    val gap = curTime - onBackPressedTime
-                    if (gap > 1500) {
-                        onBackPressedTime = curTime
-                        showToast(this@MainActivity, "한 번 더 누르면 종료")
-                        return
-                    }
-                    finish()
-                }
-                updateBottomMenu()
-            }
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initNavigation()
         initClickListener()
-        addActionWhenBackPressed()
+        initBackButtonClickListener()
     }
 
     private fun initNavigation() {
-        replaceTo<HomeFragment>(R.id.fc_my_page, HOME_FRAGMENT_TAG)
+        navigateTo<HomeFragment>(R.id.fc_my_page, HOME_FRAGMENT_TAG)
     }
 
     private fun initClickListener() {
@@ -67,19 +51,33 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         }
     }
 
-    private fun addActionWhenBackPressed() {
-        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    private fun initBackButtonClickListener() {
+        onBackPressedDispatcher.addCallback {
+            if (curPos == HOME) {
+                val curTime = System.currentTimeMillis()
+                val gap = curTime - onBackPressedTime
+                if (gap > 1500) {
+                    onBackPressedTime = curTime
+                    showToast(this@MainActivity, "한 번 더 누르면 종료")
+                    return@addCallback
+                }
+                finish()
+                System.runFinalization()
+                exitProcess(0)
+            }
+            updateBottomMenu()
+        }
     }
 
     private fun onNavigationItemSelected(itemId: Int): Boolean {
         when (itemId) {
-            R.id.navigation_home -> replaceTo<HomeFragment>(R.id.fc_my_page, HOME_FRAGMENT_TAG) {
+            R.id.navigation_home -> navigateTo<HomeFragment>(R.id.fc_my_page, HOME_FRAGMENT_TAG) {
                 curPos = HOME
             }
-            R.id.navigation_gallery -> replaceTo<GalleryFragment>(R.id.fc_my_page) {
+            R.id.navigation_gallery -> navigateTo<GalleryFragment>(R.id.fc_my_page) {
                 curPos = GALLERY
             }
-            R.id.navigation_search -> replaceTo<SearchFragment>(R.id.fc_my_page) {
+            R.id.navigation_search -> navigateTo<SearchFragment>(R.id.fc_my_page) {
                 curPos = SEARCH
             }
             else -> Timber.e(IllegalArgumentException("itemId: $itemId"))
@@ -88,7 +86,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
     }
 
     private fun updateBottomMenu() {
-        replaceTo<HomeFragment>(R.id.fc_my_page) {
+        navigateTo<HomeFragment>(R.id.fc_my_page) {
             curPos = HOME
         }
         binding.botNavMain.selectedItemId = R.id.navigation_home

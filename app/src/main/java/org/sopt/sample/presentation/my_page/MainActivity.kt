@@ -17,7 +17,6 @@ import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
-
     private var curPos = HOME
     private var onBackPressedTime = 0L
 
@@ -26,6 +25,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         initNavigation()
         initClickListener()
         initBackButtonClickListener()
+        listOf(1).max()
     }
 
     private fun initNavigation() {

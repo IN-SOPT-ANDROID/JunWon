@@ -21,7 +21,7 @@ class SettingActivity : BindingActivity<ActivitySettingBinding>(R.layout.activit
     private fun initClickListener() {
         binding.tvLogout.setOnClickListener {
             Intent(this, SignInActivity::class.java).also { intent ->
-                viewModel.cancelAutoLogin()
+                viewModel.logOut()
                 startActivity(intent)
                 finishAffinity()
             }

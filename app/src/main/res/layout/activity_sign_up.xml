@@ -77,28 +77,27 @@
             tools:text="123" />
 
         <TextView
-            android:id="@+id/tv_mbti"
+            android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="43dp"
             android:layout_marginTop="10dp"
-            android:text="@string/mbti"
+            android:text="이름"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edt_input_password" />
 
         <EditText
-            android:id="@+id/edt_input_mbti"
+            android:id="@+id/edt_input_user_name"
             style="@style/InSoptEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="40dp"
-            android:hint="@string/sign_up_mbti"
-            android:inputType="textCapCharacters"
-            android:text="@={vm.userMbti}"
+            android:hint="이름을 입력해주세요"
+            android:text="@={vm.userName}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_mbti"
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_name"
             tools:text="ab" />
 
         <com.google.android.material.button.MaterialButton

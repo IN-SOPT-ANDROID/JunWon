@@ -9,19 +9,20 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import org.sopt.sample.data.entity.Follower
-import org.sopt.sample.data.entity.FollowerHeader
 import org.sopt.sample.data.entity.FollowerContent
-import org.sopt.sample.data.local.SoptSharedPreference
+import org.sopt.sample.data.entity.FollowerHeader
+import org.sopt.sample.data.entity.User
+import org.sopt.sample.data.repository.UserRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(soptSharedPreference: SoptSharedPreference) :
+class HomeViewModel @Inject constructor(userRepository: UserRepository) :
     ViewModel() {
     private var _followerList: MutableStateFlow<List<Follower>> =
         MutableStateFlow(listOf(FollowerHeader()))
     val followerList: StateFlow<List<Follower>> = _followerList.asStateFlow()
-    private var _userMbti = MutableStateFlow(soptSharedPreference.userInfo.mbti)
-    val userMbti: StateFlow<String> = _userMbti.asStateFlow()
+    private var _user = MutableStateFlow(userRepository.getUser())
+    val user: StateFlow<User> = _user.asStateFlow()
 
     init {
         viewModelScope.launch {

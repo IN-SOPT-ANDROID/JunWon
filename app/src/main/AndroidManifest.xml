@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.INSOPTAndroidPractice"
+        android:usesCleartextTraffic="true"
         tools:targetApi="32">
         <activity
             android:name=".presentation.setting.SettingActivity"

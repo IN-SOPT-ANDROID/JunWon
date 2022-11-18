@@ -7,15 +7,14 @@
     <string name="input_id">아이디를 입력하세요.</string>
     <string name="password">비밀번호</string>
     <string name="input_password">비밀번호를 입력하세요.</string>
-    <string name="profile">이름: 이준원</string>
     <string name="signup">회원가입</string>
     <string name="login">login</string>
     <string name="sign_up_name">SIGNUP</string>
     <string name="mbti">MBTI</string>
     <string name="acess_signup">회원가입 완료</string>
     <string name="sign_up_mbti">선택 사항입니다</string>
-    <string name="name">이름 : 이준원</string>
-    <string name="my_page_mbti">MBTI : %s</string>
+    <string name="my_page_name">이름 : %s</string>
+    <string name="my_page_email">Email : %s</string>
     <string name="sign_up_success">회원가입이 완료되었다</string>
     <string name="sign_in_success">로그인에 성공했습니다</string>
     <string name="sign_in_fail">아이디/비밀번호를 확인해주세요</string>

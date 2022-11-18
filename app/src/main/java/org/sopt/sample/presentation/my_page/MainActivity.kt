@@ -25,7 +25,6 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         initNavigation()
         initClickListener()
         initBackButtonClickListener()
-        listOf(1).max()
     }
 
     private fun initNavigation() {
@@ -45,7 +44,6 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
                         fragment.initScrollToPosition(0)
                         return@let
                     }
-                    Timber.e("homeFragment is InVisible")
                 } ?: Timber.e(getString(R.string.null_point_exception))
             }
         }

@@ -22,6 +22,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "REQRES_BASE_URL", properties["REQRES_BASE_URL"]
         buildConfigField "String", "SOPT_BASE_URL", properties["SOPT_BASE_URL"]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

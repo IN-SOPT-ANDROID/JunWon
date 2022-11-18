@@ -6,9 +6,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.sample.R
-import org.sopt.sample.data.model.UserInfo
+import org.sopt.sample.data.entity.UserInfo
 import org.sopt.sample.databinding.ActivitySignInBinding
-import org.sopt.sample.presentation.my_page.MyPageActivity
+import org.sopt.sample.presentation.my_page.MainActivity
 import org.sopt.sample.presentation.sign_up.SignUpActivity
 import org.sopt.sample.util.binding.BindingActivity
 import org.sopt.sample.util.extension.showSnackBar
@@ -41,7 +41,7 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
     private fun checkAutoLogin() {
         Timber.e("viewModel.isAutoMode.value :${viewModel.isAutoMode.value}")
         if (viewModel.isAutoMode.value) {
-            startActivity(Intent(this, MyPageActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             if (!isFinishing) finish()
         }
     }
@@ -60,7 +60,7 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
         if (viewModel.checkLoginStatus()) {
             Timber.e("viewModel.isAutoMode :${viewModel.isAutoMode.value}")
             viewModel.saveAutoMode()
-            Intent(this, MyPageActivity::class.java).also { myPageIntent ->
+            Intent(this, MainActivity::class.java).also { myPageIntent ->
                 startActivity(myPageIntent)
                 showToast(this, getString(R.string.sign_in_success))
                 if (!isFinishing) finish()

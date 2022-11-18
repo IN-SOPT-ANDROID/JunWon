@@ -5,7 +5,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.sopt.sample.data.local.SoptSharedPreference
-import org.sopt.sample.data.model.UserInfo
+import org.sopt.sample.data.entity.UserInfo
 import javax.inject.Inject
 
 @HiltViewModel

@@ -36,7 +36,7 @@
             app:layout_constraintEnd_toEndOf="@id/edt_id_enter" />
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_follower_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -55,7 +55,7 @@
             android:text="@string/id"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_follower_name" />
 
         <EditText
             android:id="@+id/edt_id_enter"

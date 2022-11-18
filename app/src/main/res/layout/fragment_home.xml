@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="org.sopt.sample.presentation.my_page.MyPageViewModel" />
+            type="org.sopt.sample.presentation.my_page.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,7 +37,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/tv_follower_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -56,9 +56,9 @@
                 android:padding="3dp"
                 android:src="@drawable/my_profile"
                 app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="@id/tv_title"
-                app:layout_constraintStart_toStartOf="@id/tv_title"
-                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                app:layout_constraintEnd_toEndOf="@id/tv_follower_name"
+                app:layout_constraintStart_toStartOf="@id/tv_follower_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_follower_name"
                 app:shapeAppearanceOverlay="@style/CornerSize50Percent"
                 app:strokeColor="@color/hous_green"
                 app:strokeWidth="3dp" />
@@ -92,5 +92,16 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_name"
                 tools:text="MBTI : INFP" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_followers"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_profile"
+            tools:listitem="@layout/item_follower_info" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

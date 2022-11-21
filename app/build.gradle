@@ -47,6 +47,8 @@ android {
 }
 
 dependencies {
+    // lottie
+    implementation 'com.airbnb.android:lottie:5.2.0'
     // kotlinx-serialization-json
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
     // Security 라이브러리

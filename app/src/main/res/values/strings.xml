@@ -24,4 +24,6 @@
     <string name="bottom_navi_home">홈</string>
     <string name="bottom_navi_galley">갤러리</string>
     <string name="bottom_navi_search">검색</string>
+    <string name="empty_view_content">%s\'s Follower가 없어요..</string>
+
 </resources>

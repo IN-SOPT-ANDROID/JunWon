@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="user"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/hous_white">
+
+        <TextView
+            style="@style/H2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@{@string/empty_view_content(user)}"
+            android:textColor="@color/hous_g_4"
+            android:textSize="20dp"
+            tool:text="준원\'s Follower가 없어요 ㅠㅜ" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

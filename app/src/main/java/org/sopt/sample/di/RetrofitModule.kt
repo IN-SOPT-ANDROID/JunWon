@@ -23,7 +23,17 @@ object RetrofitModule {
 
     private const val SOPT_BASE_URL: String = BuildConfig.SOPT_BASE_URL
     private const val REQRES_BASE_URL: String = BuildConfig.REQRES_BASE_URL
-    private val json = Json { ignoreUnknownKeys = true }
+
+    @Provides
+    @Singleton
+    fun provideJson(): Json = Json {
+        // kotlin-serialization은 god인가??
+        // 만약 더 개꿀인 option있으면 추천받습니다~~ 저는 이정도면 충분하다 생각하긴하지만요~
+        isLenient = true
+        ignoreUnknownKeys = true
+        coerceInputValues = true
+        encodeDefaults = true
+    }
 
     @Provides
     @Singleton
@@ -46,12 +56,12 @@ object RetrofitModule {
     @Provides
     @Retrofit2(RetrofitType.SOPT)
     @Singleton
-    fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit =
+    fun providesRetrofit(okHttpClient: OkHttpClient, jsonCustomFormat: Json): Retrofit =
         Retrofit.Builder()
             .baseUrl(SOPT_BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(
-                json.asConverterFactory("application/json".toMediaType())
+                jsonCustomFormat.asConverterFactory("application/json".toMediaType())
             )
             .build()
 
@@ -59,12 +69,12 @@ object RetrofitModule {
     @Provides
     @Singleton
     @Retrofit2(RetrofitType.REQ_RES)
-    fun providesReqResRetrofit(okHttpClient: OkHttpClient): Retrofit =
+    fun providesReqResRetrofit(okHttpClient: OkHttpClient, jsonCustomFormat: Json): Retrofit =
         Retrofit.Builder()
             .baseUrl(REQRES_BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(
-                json.asConverterFactory("application/json".toMediaType())
+                jsonCustomFormat.asConverterFactory("application/json".toMediaType())
             )
             .build()
 

@@ -1,5 +1,6 @@
 package org.sopt.sample.presentation.sign_up
 
+import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,6 +13,7 @@ import kotlinx.coroutines.launch
 import org.sopt.sample.data.repository.DefaultAuthRepository
 import org.sopt.sample.data.repository.UserRepository
 import timber.log.Timber
+import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,8 +27,9 @@ class SignUpViewModel @Inject constructor(
     val userName = MutableStateFlow("")
     val isValidSignUpFormat: StateFlow<Boolean> =
         combine(userPassWord, userId, userName) { pw, id, name ->
-            id.length in (6..10) && pw.length in (8..12) &&
-                isLetterOrDigit(id) && name.length in (2..8)
+            isValidIdFormatOf(id) &&
+                isValidPwFormatOf(pw) &&
+                name.length in (2..8)
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), false)
 
     fun postSignUp() =
@@ -45,5 +48,13 @@ class SignUpViewModel @Inject constructor(
             }
         }
 
-    private fun isLetterOrDigit(id: String) = id.all { char -> char.isLetterOrDigit() }
+    fun isValidIdFormatOf(id: String) =
+        id.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(id).matches() && id.length in (6..10)
+
+    fun isValidPwFormatOf(pw: String) =
+        pw.isEmpty() || !Pattern.matches(PW_PATTERN, pw) && pw.length in (8..12)
+
+    companion object {
+        private const val PW_PATTERN = "^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-zA-Z]).{8,20}$"
+    }
 }

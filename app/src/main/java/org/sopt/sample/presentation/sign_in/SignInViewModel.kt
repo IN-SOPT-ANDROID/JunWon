@@ -31,8 +31,7 @@ class SignInViewModel @Inject constructor(
     val isAutoMode = _isAutoMode.asStateFlow()
     val isValidSignInFormat: StateFlow<Boolean> =
         combine(userPassword, userid) { pw, id ->
-            id.length in (6..10) && pw.length in (8..12) &&
-                isLetterOrDigit(id)
+            id.length in (6..10) && pw.length in (8..12)
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), false)
 
     fun setSignInContent() {
@@ -60,6 +59,4 @@ class SignInViewModel @Inject constructor(
                 }
         }
     }
-
-    private fun isLetterOrDigit(id: String) = id.all { char -> char.isLetterOrDigit() }
 }

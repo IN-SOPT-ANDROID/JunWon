@@ -15,12 +15,8 @@
     </style>
 
     <style name="InSoptEditText" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:maxLength">10</item>
         <item name="android:maxLines">1</item>
         <item name="android:textSize">18sp</item>
-        <item name="colorControlNormal">@color/hous_g_5</item>
-        <item name="colorControlActivated">@color/hous_blue</item>
-        <item name="android:paddingBottom">15dp</item>
         <item name="android:textColorHint">@color/hous_g_5</item>
     </style>
 

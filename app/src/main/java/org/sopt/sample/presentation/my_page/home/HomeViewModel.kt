@@ -38,8 +38,7 @@ class HomeViewModel @Inject constructor(
                             return@onSuccess
                         }
                     }
-                    _uiState.update { UiState.Empty }
-//                    _uiState.update { UiState.Success(HomeUiStateModel(listOf(FollowerHeader()) + followers)) }
+                    _uiState.update { UiState.Success(HomeUiStateModel(listOf(FollowerHeader()) + followers)) }
                 }
                 .onFailure { throwable ->
                     Timber.e(throwable)

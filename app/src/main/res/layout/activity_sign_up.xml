@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="vm"
             type="org.sopt.sample.presentation.sign_up.SignUpViewModel" />
@@ -32,8 +34,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="43dp"
-            android:text="@string/id"
             android:layout_marginTop="40dp"
+            android:text="@string/id"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_follower_name" />
@@ -44,19 +46,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="40dp"
+            android:background="@null"
             android:hint="@string/input_id"
             android:inputType="textAutoComplete"
+            android:maxLength="10"
+            android:paddingStart="3dp"
             android:text="@={vm.userId}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_id" />
+
+        <View
+            android:id="@+id/view_id"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="4dp"
+            android:background="@{vm.isValidIdFormatOf(vm.userId) ? @color/hous_g_3 : @color/hous_red }"
+            app:layout_constraintEnd_toEndOf="@id/edt_input_id"
+            app:layout_constraintStart_toStartOf="@id/edt_input_id"
+            app:layout_constraintTop_toBottomOf="@id/edt_input_id"
+            tools:background="@color/hous_blue" />
+
+        <TextView
+            android:id="@+id/tv_id_error_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="end"
+            android:text="아이디 양식이 잘못되었습니다."
+            android:textColor="@color/hous_red"
+            android:textSize="10dp"
+            android:visibility="@{vm.isValidIdFormatOf(vm.userId) ? View.GONE: View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="@id/view_id"
+            app:layout_constraintTop_toBottomOf="@id/view_id" />
 
         <TextView
             android:id="@+id/tv_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="43dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:text="@string/password"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,37 +98,64 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="40dp"
+            android:background="@null"
             android:hint="@string/input_password"
             android:inputType="textPassword"
+            android:maxLength="12"
+            android:paddingStart="3dp"
             android:text="@={vm.userPassWord}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_password"
             tools:text="123" />
 
+        <View
+            android:id="@+id/view_pw"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="4dp"
+            android:background="@{vm.isValidPwFormatOf(vm.userPassWord) ? @color/hous_g_3 : @color/hous_red }"
+            app:layout_constraintEnd_toEndOf="@id/edt_input_password"
+            app:layout_constraintStart_toStartOf="@id/edt_input_password"
+            app:layout_constraintTop_toBottomOf="@id/edt_input_password"
+            tools:background="@color/hous_blue" />
+
         <TextView
-            android:id="@+id/tv_mbti"
+            android:id="@+id/tv_pw_error_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="end"
+            android:text="패스워드 양식이 잘못되었습니다."
+            android:textColor="@color/hous_red"
+            android:textSize="10dp"
+            android:visibility="@{vm.isValidPwFormatOf(vm.userPassWord) ? View.GONE: View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="@id/view_pw"
+            app:layout_constraintTop_toBottomOf="@id/view_pw" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="43dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/mbti"
+            android:layout_marginTop="15dp"
+            android:text="이름"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edt_input_password" />
 
         <EditText
-            android:id="@+id/edt_input_mbti"
+            android:id="@+id/edt_input_user_name"
             style="@style/InSoptEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="40dp"
-            android:hint="@string/sign_up_mbti"
-            android:inputType="textCapCharacters"
-            android:text="@={vm.userMbti}"
+            android:hint="이름을 입력해주세요"
+            android:text="@={vm.userName}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_mbti"
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_name"
             tools:text="ab" />
 
         <com.google.android.material.button.MaterialButton

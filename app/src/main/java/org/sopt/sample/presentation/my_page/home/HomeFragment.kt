@@ -9,7 +9,9 @@ import org.sopt.sample.R
 import org.sopt.sample.databinding.FragmentHomeBinding
 import org.sopt.sample.presentation.my_page.home.adapter.FollowerAdapter
 import org.sopt.sample.presentation.setting.SettingActivity
+import org.sopt.sample.util.*
 import org.sopt.sample.util.binding.BindingFragment
+import org.sopt.sample.util.dialog.LoadingDialogFragment
 import org.sopt.sample.util.extension.repeatOnStarted
 import timber.log.Timber
 
@@ -23,9 +25,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
         initAdapter()
-        observeUiState()
+        collectUiState()
         initClickListener()
-        Timber.e(" ")
     }
 
     private fun initAdapter() {
@@ -40,12 +41,36 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             ?: Timber.e(getString(R.string.null_point_exception))
     }
 
-    private fun observeUiState() {
+    private fun collectUiState() {
         repeatOnStarted {
-            viewModel.followerList.collect { followerList ->
-                followerAdapter.submitList(followerList)
+            viewModel.uiState.collect { uiState ->
+                uiState
+                    .onLoading {
+                        showLoadingDialog()
+                    }
+                    .onEmpty {
+                        dismissLoadingDialog()
+                        binding.icEmptyView.root.visibility = View.VISIBLE
+                    }
+                    .onSuccess {
+                        dismissLoadingDialog()
+                        binding.icEmptyView.root.visibility = View.GONE
+                        followerAdapter.submitList(it.followers)
+                    }
+                    .onFailed {
+                        dismissLoadingDialog()
+                        showToast(it.message.toString())
+                    }
             }
         }
+    }
+    private fun showLoadingDialog() {
+        LoadingDialogFragment().show(childFragmentManager, LoadingDialogFragment.TAG)
+    }
+    private fun dismissLoadingDialog() {
+        childFragmentManager.findFragmentByTag(LoadingDialogFragment.TAG)?.let { dialog ->
+            (dialog as LoadingDialogFragment).dismiss()
+        } ?: Timber.e("can't find LoadingDialogFragment")
     }
 
     private fun initClickListener() {

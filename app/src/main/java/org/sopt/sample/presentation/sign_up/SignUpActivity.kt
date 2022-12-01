@@ -2,10 +2,11 @@ package org.sopt.sample.presentation.sign_up
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.sopt.sample.R
 import org.sopt.sample.databinding.ActivitySignUpBinding
-import org.sopt.sample.presentation.sign_in.SignInActivity.Companion.USER_INFO
 import org.sopt.sample.util.binding.BindingActivity
 
 @AndroidEntryPoint
@@ -20,18 +21,15 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
     private fun initClickListener() {
         binding.btnSignup.setOnClickListener {
-            viewModel.saveUserInfo()
-            navigateSignInActivity()
+            lifecycleScope.launch {
+                viewModel.postSignUp().join()
+                navigateSignInActivity()
+            }
         }
     }
 
     private fun navigateSignInActivity() {
-        intent.apply {
-            val userIndo = viewModel.getUserInfo()
-            putExtra(USER_INFO, userIndo)
-        }.also { intent ->
-            setResult(RESULT_OK, intent)
-            if (!isFinishing) finish()
-        }
+        setResult(RESULT_OK, intent)
+        if (!isFinishing) finish()
     }
 }

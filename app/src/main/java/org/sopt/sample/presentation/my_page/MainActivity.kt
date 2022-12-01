@@ -17,7 +17,6 @@ import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
-
     private var curPos = HOME
     private var onBackPressedTime = 0L
 
@@ -45,7 +44,6 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
                         fragment.initScrollToPosition(0)
                         return@let
                     }
-                    Timber.e("homeFragment is InVisible")
                 } ?: Timber.e(getString(R.string.null_point_exception))
             }
         }

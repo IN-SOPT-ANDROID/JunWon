@@ -110,8 +110,9 @@
             style="@style/InSoptBasicButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@{vm.userid.empty || vm.userPassword.empty ? @color/hous_g_6 : @color/hous_blue}"
-            android:clickable="@{vm.userid.empty || vm.userPassword.empty ? false : true}"
+            android:backgroundTint="@{vm.isValidSignInFormat ? @color/hous_blue : @color/hous_g_6}"
+            android:clickable="@{vm.isValidSignInFormat ? true : false}"
+            android:onClick="@{ () -> vm.postSignIn()}"
             android:text="@string/login" />
 
         <com.google.android.material.button.MaterialButton

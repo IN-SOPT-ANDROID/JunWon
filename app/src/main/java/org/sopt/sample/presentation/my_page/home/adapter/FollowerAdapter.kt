@@ -5,15 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.sopt.sample.data.entity.Follower
-import org.sopt.sample.data.entity.FollowerHeader
 import org.sopt.sample.data.entity.FollowerContent
+import org.sopt.sample.data.entity.FollowerHeader
 import org.sopt.sample.databinding.ItemFollowerInfoBinding
 import org.sopt.sample.databinding.ItemFollowerListTitleBinding
 import org.sopt.sample.presentation.my_page.home.type.FollowerItemViewType
 import org.sopt.sample.util.ItemDiffCallback
-import timber.log.Timber
 
-class FollowerAdapter :
+class FollowerAdapter() :
     ListAdapter<Follower, RecyclerView.ViewHolder>(followerItemComparator) {
     private lateinit var inflater: LayoutInflater
     override fun getItemViewType(position: Int): Int {
@@ -46,33 +45,23 @@ class FollowerAdapter :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val data = currentList[position]
-        when (holder) {
-            is FollowerListTitleViewHolder -> holder.onBind(data)
-            is FollowerViewHolder -> holder.onBind(data)
-            else -> Timber.e(IllegalArgumentException("holder : $holder"))
+        when (data) {
+            is FollowerHeader -> (holder as FollowerListTitleViewHolder).onBind(data)
+            is FollowerContent -> (holder as FollowerViewHolder).onBind(data)
         }
     }
 
     class FollowerViewHolder(private val binding: ItemFollowerInfoBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: Follower) {
-            try {
-                binding.data = data as FollowerContent
-            } catch (e: ClassCastException) {
-                Timber.e(e.localizedMessage)
-                binding.data = FollowerContent()
-            }
+        fun onBind(data: FollowerContent) {
+            binding.data = data
         }
     }
 
     class FollowerListTitleViewHolder(private val binding: ItemFollowerListTitleBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: Follower) {
-            try {
-                binding.data = data as FollowerHeader
-            } catch (e: ClassCastException) {
-                Timber.e(e.localizedMessage)
-            }
+        fun onBind(data: FollowerHeader) {
+            binding.data = data
         }
     }
 

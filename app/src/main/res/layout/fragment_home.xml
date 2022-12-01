@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -69,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:gravity="center_horizontal"
-                android:text="@string/profile"
+                android:text="@{@string/my_page_name(vm.user.name)}"
                 android:textAppearance="@style/B3"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -83,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center_horizontal"
-                android:text="@{@string/my_page_mbti(vm.userMbti)}"
+                android:text="@{@string/my_page_email(vm.user.email)}"
                 android:textAppearance="@style/B3"
                 android:textColor="@color/white"
                 android:textSize="13sp"
@@ -103,5 +104,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_profile"
             tools:listitem="@layout/item_follower_info" />
+
+        <include
+            android:id="@+id/ic_empty_view"
+            layout="@layout/item_empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_profile"
+            bind:user="@{vm.user.name}"
+            tools:visibility="visible" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

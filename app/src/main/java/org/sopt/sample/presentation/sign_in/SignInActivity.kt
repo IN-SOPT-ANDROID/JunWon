@@ -6,14 +6,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.sample.R
-import org.sopt.sample.data.entity.UserInfo
 import org.sopt.sample.databinding.ActivitySignInBinding
 import org.sopt.sample.presentation.my_page.MainActivity
 import org.sopt.sample.presentation.sign_up.SignUpActivity
 import org.sopt.sample.util.binding.BindingActivity
+import org.sopt.sample.util.extension.repeatOnStarted
 import org.sopt.sample.util.extension.showSnackBar
 import org.sopt.sample.util.showToast
-import timber.log.Timber
 
 @AndroidEntryPoint
 class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_sign_in) {
@@ -24,10 +23,7 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
                 showSnackBar(binding.root, getString(R.string.sign_up_success)) {
                     setAction("확인") {}
                 }
-                val userInfo = result.data?.getParcelableExtra<UserInfo>(USER_INFO)
-                userInfo?.also { userData ->
-                    viewModel.setLoginInfo(userData)
-                } ?: Timber.e(getString(R.string.null_point_exception))
+                viewModel.setSignInContent()
             }
         }
 
@@ -36,10 +32,23 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
         binding.vm = viewModel
         checkAutoLogin()
         initClickListener()
+        collectSignInState()
+    }
+
+    private fun collectSignInState() {
+        repeatOnStarted {
+            viewModel.isSignInSuccess.collect { isSuccess ->
+                if (isSuccess) {
+                    return@collect navigateMainActivity()
+                }
+                showSnackBar(binding.root, getString(R.string.sign_in_fail)) {
+                    setAction("확인") {}
+                }
+            }
+        }
     }
 
     private fun checkAutoLogin() {
-        Timber.e("viewModel.isAutoMode.value :${viewModel.isAutoMode.value}")
         if (viewModel.isAutoMode.value) {
             startActivity(Intent(this, MainActivity::class.java))
             if (!isFinishing) finish()
@@ -50,33 +59,16 @@ class SignInActivity : BindingActivity<ActivitySignInBinding>(R.layout.activity_
         binding.btnSignup.setOnClickListener {
             navigateSignUpActivity()
         }
-
-        binding.btnLogin.setOnClickListener {
-            navigateMyPageActivity()
-        }
     }
 
-    private fun navigateMyPageActivity() {
-        if (viewModel.checkLoginStatus()) {
-            Timber.e("viewModel.isAutoMode :${viewModel.isAutoMode.value}")
-            viewModel.saveAutoMode()
-            Intent(this, MainActivity::class.java).also { myPageIntent ->
-                startActivity(myPageIntent)
-                showToast(this, getString(R.string.sign_in_success))
-                if (!isFinishing) finish()
-            }
-        }
-        showSnackBar(binding.root, getString(R.string.sign_in_fail)) {
-            setAction("확인") {}
-        }
+    private fun navigateMainActivity() {
+        startActivity(Intent(this, MainActivity::class.java))
+        showToast(this, getString(R.string.sign_in_success))
+        if (!isFinishing) finish()
     }
 
     private fun navigateSignUpActivity() {
         val signUpIntent = Intent(this, SignUpActivity::class.java)
         resultLauncher.launch(signUpIntent)
-    }
-
-    companion object {
-        const val USER_INFO = "user_info"
     }
 }

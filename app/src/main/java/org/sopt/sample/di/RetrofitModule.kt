@@ -42,7 +42,6 @@ object RetrofitModule {
             chain.proceed(
                 chain.request()
                     .newBuilder()
-                    .addHeader("Content-Type", "multipart/form-data")
                     .build()
             )
         }

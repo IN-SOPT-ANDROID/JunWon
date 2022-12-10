@@ -18,7 +18,7 @@ class GalleryFragment : BindingFragment<FragmentGalleryBinding>(R.layout.fragmen
     private lateinit var musicAdapter: MusicAdapter
     private val viewModel by viewModels<GalleryViewModel>()
     private val launcherObserver by lazy {
-        LauncherObserver(requireActivity().activityResultRegistry, ::imageLoad)
+        GalleryLauncherObserver(requireActivity().activityResultRegistry, ::imageLoad)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -8,7 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 
-class LauncherObserver(private val registry: ActivityResultRegistry, private val action: (uri: Uri) -> Unit) :
+class GalleryLauncherObserver(private val registry: ActivityResultRegistry, private val action: (uri: Uri) -> Unit) :
     DefaultLifecycleObserver {
     lateinit var getContent: ActivityResultLauncher<PickVisualMediaRequest>
 

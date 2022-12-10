@@ -62,11 +62,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                         showToast(it.message.toString())
                     }
             }
+
         }
     }
+
     private fun showLoadingDialog() {
         LoadingDialogFragment().show(childFragmentManager, LoadingDialogFragment.TAG)
     }
+
     private fun dismissLoadingDialog() {
         childFragmentManager.findFragmentByTag(LoadingDialogFragment.TAG)?.let { dialog ->
             (dialog as LoadingDialogFragment).dismiss()

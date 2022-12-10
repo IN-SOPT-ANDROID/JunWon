@@ -29,6 +29,6 @@ object ServiceModule {
 
     @Provides
     @Singleton
-    fun providesGalleyService(@Retrofit2(RetrofitType.MUSIC) retrofit: Retrofit): MusicService =
+    fun providesMusicService(@Retrofit2(RetrofitType.MUSIC) retrofit: Retrofit): MusicService =
         retrofit.create()
 }

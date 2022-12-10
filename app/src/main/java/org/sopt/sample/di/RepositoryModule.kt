@@ -7,8 +7,10 @@ import dagger.hilt.components.SingletonComponent
 import org.sopt.sample.data.repository.AuthRepository
 import org.sopt.sample.data.repository.DefaultAuthRepository
 import org.sopt.sample.data.repository.DefaultFollowerRepository
+import org.sopt.sample.data.repository.DefaultMusicRepository
 import org.sopt.sample.data.repository.DefaultUserRepository
 import org.sopt.sample.data.repository.FollowerRepository
+import org.sopt.sample.data.repository.MusicRepository
 import org.sopt.sample.data.repository.UserRepository
 
 @Module
@@ -22,4 +24,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindFollowerRepository(defaultFollowerRepository: DefaultFollowerRepository): FollowerRepository
+
+    @Binds
+    abstract fun bindMusicRepository(defaultMusicRepository: DefaultMusicRepository): MusicRepository
 }

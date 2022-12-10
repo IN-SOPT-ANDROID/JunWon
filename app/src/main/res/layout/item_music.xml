@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="org.sopt.sample.data.entity.Music" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/hous_white"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/iv_music_profile"
+            android:layout_width="60dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            app:imageUrl="@{data.image}"
+            app:layout_constraintBaseline_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_music_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="5dp"
+            android:maxLines="1"
+            android:text="@{data.title}"
+            android:textAppearance="@style/B2"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_music_profile"
+            app:layout_constraintTop_toTopOf="@id/iv_music_profile"
+            tools:text="murjune" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:maxLines="1"
+            android:text="@{data.singer}"
+            android:textAppearance="@style/B3"
+            android:textColor="@color/hous_g_5"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_music_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_music_title"
+            tools:text="솰라쏼라 랄라라라라라" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/hous_g_2"
+            app:layout_constraintTop_toBottomOf="@id/iv_music_profile" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.sopt.sample.data.service.AuthService
 import org.sopt.sample.data.service.HomeService
+import org.sopt.sample.data.service.MusicService
 import org.sopt.sample.di.RetrofitModule.Retrofit2
 import org.sopt.sample.di.type.RetrofitType
 import retrofit2.Retrofit
@@ -24,5 +25,10 @@ object ServiceModule {
     @Provides
     @Singleton
     fun providesHomeService(@Retrofit2(RetrofitType.REQ_RES) retrofit: Retrofit): HomeService =
+        retrofit.create()
+
+    @Provides
+    @Singleton
+    fun providesGalleyService(@Retrofit2(RetrofitType.MUSIC) retrofit: Retrofit): MusicService =
         retrofit.create()
 }

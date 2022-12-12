@@ -10,13 +10,11 @@ import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import org.sopt.sample.data.entity.Music
 import org.sopt.sample.data.repository.MusicRepository
-import org.sopt.sample.data.service.MusicService
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class GalleryViewModel @Inject constructor(
-    private val musicService: MusicService,
     private val musicRepository: MusicRepository
 ) : ViewModel() {
     private val _uiState: MutableStateFlow<List<Music>> = MutableStateFlow(emptyList())

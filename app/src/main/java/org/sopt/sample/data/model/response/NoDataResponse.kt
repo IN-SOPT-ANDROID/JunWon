@@ -4,6 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class NoDataResponse(
-    val message: String,
-    val status: Int
+    val statusCode: Int,
+    val success: Boolean,
+    val message: String
 )

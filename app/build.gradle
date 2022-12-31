@@ -24,6 +24,7 @@ android {
         versionName "1.0"
         buildConfigField "String", "REQRES_BASE_URL", properties["REQRES_BASE_URL"]
         buildConfigField "String", "SOPT_BASE_URL", properties["SOPT_BASE_URL"]
+        buildConfigField "String", "MUSIC_URL", properties["MUSIC_URL"]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -47,6 +48,9 @@ android {
 }
 
 dependencies {
+//    implementation 'com.github.bumptech.glide:glide:4.13.2'
+//    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
+//    implementation 'io.github.ParkSangGwon:tedimagepicker:1.1.10'
     // lottie
     implementation 'com.airbnb.android:lottie:5.2.0'
     // kotlinx-serialization-json
@@ -84,10 +88,10 @@ dependencies {
     // fragment ktx
     implementation 'androidx.core:core-ktx:1.8.0'
     // material
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'com.google.android.material:material:1.6.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     // activity-ktx
-    implementation 'androidx.activity:activity-ktx:1.6.0'
+    implementation 'androidx.activity:activity-ktx:1.6.1'
     // fragment-ktx
     implementation "androidx.fragment:fragment-ktx:1.5.3"
     // ViewModel

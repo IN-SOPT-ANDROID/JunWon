@@ -7,6 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
+import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,12 +24,11 @@ object RetrofitModule {
 
     private const val SOPT_BASE_URL: String = BuildConfig.SOPT_BASE_URL
     private const val REQRES_BASE_URL: String = BuildConfig.REQRES_BASE_URL
+    private const val MUSIC_URL: String = BuildConfig.MUSIC_URL
 
     @Provides
     @Singleton
     fun provideJson(): Json = Json {
-        // kotlin-serialization은 god인가??
-        // 만약 더 개꿀인 option있으면 추천받습니다~~ 저는 이정도면 충분하다 생각하긴하지만요~
         isLenient = true
         ignoreUnknownKeys = true
         coerceInputValues = true
@@ -37,13 +37,25 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    fun providesOkHttpClient(): OkHttpClient =
+    fun providesInterceptor(): Interceptor =
+        Interceptor { chain ->
+            chain.proceed(
+                chain.request()
+                    .newBuilder()
+                    .build()
+            )
+        }
+
+    @Provides
+    @Singleton
+    fun providesOkHttpClient(interceptor: Interceptor): OkHttpClient =
         OkHttpClient
             .Builder()
             .connectTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
             .readTimeout(10, TimeUnit.SECONDS)
             .apply {
+                addInterceptor(interceptor)
                 if (BuildConfig.DEBUG) {
                     addInterceptor(
                         HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
@@ -72,6 +84,19 @@ object RetrofitModule {
     fun providesReqResRetrofit(okHttpClient: OkHttpClient, jsonCustomFormat: Json): Retrofit =
         Retrofit.Builder()
             .baseUrl(REQRES_BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(
+                jsonCustomFormat.asConverterFactory("application/json".toMediaType())
+            )
+            .build()
+
+    @OptIn(ExperimentalSerializationApi::class)
+    @Provides
+    @Singleton
+    @Retrofit2(RetrofitType.MUSIC)
+    fun providesMusicRetrofit(okHttpClient: OkHttpClient, jsonCustomFormat: Json): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(MUSIC_URL)
             .client(okHttpClient)
             .addConverterFactory(
                 jsonCustomFormat.asConverterFactory("application/json".toMediaType())

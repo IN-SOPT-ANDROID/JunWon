@@ -10,6 +10,7 @@ import org.sopt.sample.R
 fun ImageView.loadCircleImage(imageUrl: String?) {
     load(imageUrl) {
         placeholder(R.drawable.my_profile)
+            .fallback(R.drawable.my_profile)
             .transformations(RoundedCornersTransformation(50f))
             .crossfade(true)
             .error(R.drawable.ic_error_24)
